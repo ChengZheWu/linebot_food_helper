@@ -156,51 +156,91 @@ def handle_message(event):
 @handler.add(PostbackEvent)
 def handle_postback(event):
     postback_data = event.postback.data
+
+    # 使用reply_message
+    reply_token = event.reply_token
     
     with ApiClient(configuration) as api_client:
         line_bot_api = MessagingApi(api_client)
         user_id = event.source.user_id
 
         if postback_data == 'action=start_food_roulette':
-            # 倒數計時.
-            line_bot_api.push_message(PushMessageRequest(to=user_id, messages=[TextMessage(text="3...")]))
-            time.sleep(1)
-            line_bot_api.push_message(PushMessageRequest(to=user_id, messages=[TextMessage(text="2...")]))
-            time.sleep(1)
-            line_bot_api.push_message(PushMessageRequest(to=user_id, messages=[TextMessage(text="1...")]))
-            time.sleep(1)
 
             # 直接使用全域的 CUISINE_OPTIONS
             chosen_cuisine = random.choice(CUISINE_OPTIONS)
             user_states[user_id] = chosen_cuisine
-            result_message = TextMessage(
-                text=f"就是你了！\n\n【{chosen_cuisine}】\n\n現在就傳送你的位置，讓我幫你尋找附近厲害的店家吧！",
-                quick_reply=QuickReply(items=[QuickReplyItem(action=LocationAction(label="傳送我的位置 📍"))])
+
+            # 倒數計時
+            # line_bot_api.push_message(PushMessageRequest(to=user_id, messages=[TextMessage(text="3...")]))
+            # time.sleep(1)
+            # line_bot_api.push_message(PushMessageRequest(to=user_id, messages=[TextMessage(text="2...")]))
+            # time.sleep(1)
+            # line_bot_api.push_message(PushMessageRequest(to=user_id, messages=[TextMessage(text="1...")]))
+            # time.sleep(1)
+            # result_message = TextMessage(
+            #     text=f"就是你了！\n\n【{chosen_cuisine}】\n\n現在就傳送你的位置，讓我幫你尋找附近厲害的店家吧！",
+            #     quick_reply=QuickReply(items=[QuickReplyItem(action=LocationAction(label="傳送我的位置 📍"))])
+            # )
+            # line_bot_api.push_message(PushMessageRequest(to=user_id, messages=[result_message]))
+            
+            # 使用reply_message
+            messages_to_send = [
+                TextMessage(text="3..."),
+                TextMessage(text="2..."),
+                TextMessage(text="1..."),
+                TextMessage(
+                    text=f"就是你了！\n\n【{chosen_cuisine}】\n\n現在就傳送你的位置，讓我幫你尋找附近厲害的店家吧！",
+                    quick_reply=QuickReply(items=[QuickReplyItem(action=LocationAction(label="傳送我的位置 📍"))])
+                )
+            ]
+
+            # 使用 ReplyMessageRequest 一次性回覆
+            line_bot_api.reply_message(
+                ReplyMessageRequest(
+                    reply_token=reply_token,
+                    messages=messages_to_send
+                )
             )
-            line_bot_api.push_message(PushMessageRequest(to=user_id, messages=[result_message]))
         
         elif postback_data == 'action=start_drinking_game':
             # 倒數計時
-            line_bot_api.push_message(PushMessageRequest(to=user_id, messages=[TextMessage(text="3...")]))
-            time.sleep(1)
-            line_bot_api.push_message(PushMessageRequest(to=user_id, messages=[TextMessage(text="2...")]))
-            time.sleep(1)
-            line_bot_api.push_message(PushMessageRequest(to=user_id, messages=[TextMessage(text="1...")]))
-            time.sleep(1)
+            # line_bot_api.push_message(PushMessageRequest(to=user_id, messages=[TextMessage(text="3...")]))
+            # time.sleep(1)
+            # line_bot_api.push_message(PushMessageRequest(to=user_id, messages=[TextMessage(text="2...")]))
+            # time.sleep(1)
+            # line_bot_api.push_message(PushMessageRequest(to=user_id, messages=[TextMessage(text="1...")]))
+            # time.sleep(1)
             
             # 直接使用全域的 DRINKING_GAME_OPTIONS
             chosen_action = random.choice(DRINKING_GAME_OPTIONS)
             result_message = TextMessage(text=f"輪盤的指令是...\n\n 👉 {chosen_action} 👈")
             line_bot_api.push_message(PushMessageRequest(to=user_id, messages=[result_message]))
 
-            time.sleep(3) 
+            # time.sleep(3) 
 
             flex_message_json_drink = {
                 "type": "flex", "altText": "啟動喝酒輪盤",
                 "contents": {"type": "bubble", "hero": {"type": "image", "url": "https://i.imgur.com/uT9VH9a.gif", "size": "full", "aspectRatio": "20:20", "aspectMode": "cover", "animated": True}, "body": {"type": "box", "layout": "vertical", "contents": [{"type": "text", "text": "再來一輪？", "weight": "bold", "size": "xl", "align": "center"}, {"type": "text", "text": "點擊按鈕，繼續挑戰下一個幸運兒！", "wrap": True, "align": "center", "margin": "md"}]}, "footer": {"type": "box", "layout": "vertical", "spacing": "sm", "contents": [{"type": "button", "style": "primary", "height": "sm", "color": "#A16DF9", "action": {"type": "postback", "label": "啟動喝酒輪盤！🍻", "data": "action=start_drinking_game"}}]}}}
             
             play_again_message = FlexMessage.from_dict(flex_message_json_drink)
-            line_bot_api.push_message(PushMessageRequest(to=user_id, messages=[play_again_message]))
+            # line_bot_api.push_message(PushMessageRequest(to=user_id, messages=[play_again_message]))
+
+            # 使用reply_message
+            messages_to_send = [
+                TextMessage(text="3..."),
+                TextMessage(text="2..."),
+                TextMessage(text="1..."),
+                TextMessage(text=result_message),
+                play_again_message # FlexMessage 放在最後
+            ]
+            
+            # 使用 ReplyMessageRequest 一次性回覆
+            line_bot_api.reply_message(
+                ReplyMessageRequest(
+                    reply_token=reply_token,
+                    messages=messages_to_send
+                )
+            )
 
 @handler.add(MessageEvent, message=LocationMessageContent)
 def handle_location_message(event):
