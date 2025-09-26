@@ -170,6 +170,7 @@ def handle_postback(event):
             chosen_cuisine = random.choice(CUISINE_OPTIONS)
             user_states[user_id] = chosen_cuisine
 
+            # 使用push_message會耗掉資源，所以要改用reply_message
             # 倒數計時
             # line_bot_api.push_message(PushMessageRequest(to=user_id, messages=[TextMessage(text="3...")]))
             # time.sleep(1)
@@ -185,9 +186,6 @@ def handle_postback(event):
             
             # 使用reply_message
             messages_to_send = [
-                TextMessage(text="3..."),
-                TextMessage(text="2..."),
-                TextMessage(text="1..."),
                 TextMessage(
                     text=f"就是你了！\n\n【{chosen_cuisine}】\n\n現在就傳送你的位置，讓我幫你尋找附近厲害的店家吧！",
                     quick_reply=QuickReply(items=[QuickReplyItem(action=LocationAction(label="傳送我的位置 📍"))])
@@ -207,6 +205,7 @@ def handle_postback(event):
             chosen_action = random.choice(DRINKING_GAME_OPTIONS)
             result_message = TextMessage(text=f"輪盤的指令是...\n\n 👉 {chosen_action} 👈")
 
+            # 使用push_message會耗掉資源，所以要改用reply_message
             # 倒數計時
             # line_bot_api.push_message(PushMessageRequest(to=user_id, messages=[TextMessage(text="3...")]))
             # time.sleep(1)
@@ -218,17 +217,66 @@ def handle_postback(event):
             # time.sleep(3) 
 
             flex_message_json_drink = {
-                "type": "flex", "altText": "啟動喝酒輪盤",
-                "contents": {"type": "bubble", "hero": {"type": "image", "url": "https://i.imgur.com/uT9VH9a.gif", "size": "full", "aspectRatio": "20:20", "aspectMode": "cover", "animated": True}, "body": {"type": "box", "layout": "vertical", "contents": [{"type": "text", "text": "再來一輪？", "weight": "bold", "size": "xl", "align": "center"}, {"type": "text", "text": "點擊按鈕，繼續挑戰下一個幸運兒！", "wrap": True, "align": "center", "margin": "md"}]}, "footer": {"type": "box", "layout": "vertical", "spacing": "sm", "contents": [{"type": "button", "style": "primary", "height": "sm", "color": "#A16DF9", "action": {"type": "postback", "label": "啟動喝酒輪盤！🍻", "data": "action=start_drinking_game"}}]}}}
+                "type": "flex", 
+                "altText": "再來一輪",
+                "contents": {
+                    "type": "bubble", 
+                    
+                    # 移除 Hero 區塊 (圖片)
+                    # 移除 body 區塊
+                    
+                    "footer": {
+                        "type": "box", 
+                        "layout": "vertical", 
+                        "spacing": "sm", 
+                        "contents": [
+                            # 新增一個 box 包含標題和說明，讓卡片更小巧
+                            {
+                                "type": "box",
+                                "layout": "vertical",
+                                "margin": "none",
+                                "contents": [
+                                    {
+                                        "type": "text", 
+                                        "text": "再來一輪？", 
+                                        "weight": "bold", 
+                                        "size": "md", 
+                                        "align": "center",
+                                        "margin": "none"
+                                    },
+                                    {
+                                        "type": "text", 
+                                        "text": "繼續挑戰下一個幸運兒！", 
+                                        "wrap": True, 
+                                        "align": "center", 
+                                        "size": "sm",
+                                        "color": "#aaaaaa",
+                                        "margin": "sm"
+                                    }
+                                ]
+                            },
+                            # 保持按鈕不變
+                            {
+                                "type": "button", 
+                                "style": "primary", 
+                                "height": "sm", 
+                                "color": "#A16DF9", 
+                                "action": {
+                                    "type": "postback", 
+                                    "label": "啟動喝酒輪盤！🍻", 
+                                    "data": "action=start_drinking_game"
+                                }
+                            }
+                        ]
+                    }
+                }
+            }
             
             play_again_message = FlexMessage.from_dict(flex_message_json_drink)
             # line_bot_api.push_message(PushMessageRequest(to=user_id, messages=[play_again_message]))
 
             # 使用reply_message
             messages_to_send = [
-                TextMessage(text="3..."),
-                TextMessage(text="2..."),
-                TextMessage(text="1..."),
                 result_message,
                 play_again_message # FlexMessage 放在最後
             ]
