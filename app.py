@@ -44,11 +44,11 @@ user_states = {}
 
 CUISINE_OPTIONS = ["中式料理", "日式料理", "義式料理", "火鍋", "美式漢堡", "韓式炸雞", "健康餐盒", "隨便"]
 DRINKING_GAME_OPTIONS = [
-    "喝一杯", "喝半杯", "把這杯乾了！", "SHOT 一杯", "淺嚐一口", "再倒一杯放著", "就是天選之人！(喝吧)",
+    "喝一杯", "喝半杯", "把這杯乾了！", "SHOT 一杯", "淺嚐一口", "再倒一杯放著",
     "左邊的人，喝一杯", "右邊的人，喝一杯", "對面的人，喝半杯", "左邊的人，SHOT 一杯", "和右邊的人，一起喝一杯",
     "左右護法 (左&右)，各喝一杯", "現場所有人，喝一杯！", "現場所有男生，喝半杯", "現場所有女生，喝半杯",
     "指定在場一個人喝一杯", "指定一個人，陪你喝一杯", "隨便找個人喝交杯酒", "PASS！安全下莊，換下一個人轉",
-    "天使卡：獲得免死金牌一張", "規則卡：自創一條本局的新規則", "猜拳卡：跟右邊的人猜拳，輸的喝一杯"
+    "天使卡：獲得免死金牌一張", "猜拳卡：跟右邊的人猜拳，輸的喝一杯"
 ]
 
 @app.route("/callback", methods=['POST'])
@@ -82,7 +82,7 @@ def handle_follow(event):
             final_welcome_text = base_text
 
         message1 = TextMessage(text=final_welcome_text)
-        message2_text = "請問是吃飯有選擇障礙還是要玩喝酒遊戲呢?\n想吃飯請打\"吃\"\n想玩喝酒遊戲請打\"喝\""
+        message2_text = "請問是吃飯有選擇障礙還是要玩喝酒遊戲呢?\n想吃飯請打\"吃\"\n想玩喝酒遊戲請打\"喝\"\n也可以直接從下面選單選擇\n重新對話請隨意輸入文字"
         
         # 更新快速回覆按鈕，加入查看清單的選項
         quick_reply_buttons = QuickReply(
@@ -129,7 +129,7 @@ def handle_message(event):
         elif text == '喝':
             flex_message_json_drink = {
                 "type": "flex", "altText": "啟動喝酒輪盤",
-                "contents": {"type": "bubble", "hero": {"type": "image", "url": "https://i.imgur.com/uT9VH9a.gif", "size": "full", "aspectRatio": "20:20", "aspectMode": "cover", "animated": True}, "body": {"type": "box", "layout": "vertical", "contents": [{"type": "text", "text": "再來一輪？", "weight": "bold", "size": "xl", "align": "center"}, {"type": "text", "text": "點擊按鈕，繼續挑戰下一個幸運兒！", "wrap": True, "align": "center", "margin": "md"}]}, "footer": {"type": "box", "layout": "vertical", "spacing": "sm", "contents": [{"type": "button", "style": "primary", "height": "sm", "color": "#A16DF9", "action": {"type": "postback", "label": "啟動喝酒輪盤！🍻", "data": "action=start_drinking_game"}}]}}}
+                "contents": {"type": "bubble", "hero": {"type": "image", "url": "https://i.imgur.com/uT9VH9a.gif", "size": "full", "aspectRatio": "20:20", "aspectMode": "cover", "animated": True}, "body": {"type": "box", "layout": "vertical", "contents": [{"type": "text", "text": "喝吧，不醉不歸!", "weight": "bold", "size": "xl", "align": "center"}, {"type": "text", "text": "讓命運來決定吧！點擊下方按鈕，看看你今天要喝多少！", "wrap": True, "align": "center", "margin": "md"}]}, "footer": {"type": "box", "layout": "vertical", "spacing": "sm", "contents": [{"type": "button", "style": "primary", "height": "sm", "color": "#A16DF9", "action": {"type": "postback", "label": "啟動喝酒輪盤！🍻", "data": "action=start_drinking_game"}}]}}}
             reply_message = FlexMessage.from_dict(flex_message_json_drink)
         
         elif text == '查看吃飯清單':
