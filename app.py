@@ -203,6 +203,10 @@ def handle_postback(event):
             )
         
         elif postback_data == 'action=start_drinking_game':
+            # 直接使用全域的 DRINKING_GAME_OPTIONS
+            chosen_action = random.choice(DRINKING_GAME_OPTIONS)
+            result_message = TextMessage(text=f"輪盤的指令是...\n\n 👉 {chosen_action} 👈")
+
             # 倒數計時
             # line_bot_api.push_message(PushMessageRequest(to=user_id, messages=[TextMessage(text="3...")]))
             # time.sleep(1)
@@ -210,12 +214,7 @@ def handle_postback(event):
             # time.sleep(1)
             # line_bot_api.push_message(PushMessageRequest(to=user_id, messages=[TextMessage(text="1...")]))
             # time.sleep(1)
-            
-            # 直接使用全域的 DRINKING_GAME_OPTIONS
-            chosen_action = random.choice(DRINKING_GAME_OPTIONS)
-            result_message = TextMessage(text=f"輪盤的指令是...\n\n 👉 {chosen_action} 👈")
-            line_bot_api.push_message(PushMessageRequest(to=user_id, messages=[result_message]))
-
+            # line_bot_api.push_message(PushMessageRequest(to=user_id, messages=[result_message]))
             # time.sleep(3) 
 
             flex_message_json_drink = {
