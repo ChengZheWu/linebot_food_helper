@@ -229,7 +229,7 @@ def handle_postback(event):
                 TextMessage(text="3..."),
                 TextMessage(text="2..."),
                 TextMessage(text="1..."),
-                TextMessage(text=result_message),
+                result_message,
                 play_again_message # FlexMessage 放在最後
             ]
             
