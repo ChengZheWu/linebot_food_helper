@@ -416,7 +416,7 @@ def handle_location_message(event):
                 rating = place.get('rating', '無評分')
                 user_ratings_total = place.get('user_ratings_total', 0)
                 place_id = place.get('place_id')
-                map_url = f"https://www.google.com/maps/place/?q=place_id:{place_id}"
+                map_url = f"https://www.google.com/maps/search/?api=1&query=Google&query_place_id={place_id}"
                 reply_text += f"📍 {name}\n⭐ 評分：{rating} ({user_ratings_total} 則評論)\n🗺️ 地圖：{map_url}\n\n"
                 count += 1
             else:
