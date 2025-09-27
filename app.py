@@ -117,38 +117,38 @@ def handle_message(event):
         ]
     )
 
+    reply_message = None
+
+    if text == '吃':
+        flex_message_json = {
+            "type": "flex", "altText": "吃飯選擇障礙輪盤Go",
+            "contents": { "type": "bubble", "hero": {"type": "image", "url": "https://i.imgur.com/G3Qc0HK.jpeg", "size": "full", "aspectRatio": "20:20", "aspectMode": "cover"}, "body": {"type": "box", "layout": "vertical", "contents": [{"type": "text", "text": "來看看吃什麼？", "weight": "bold", "size": "xl", "align": "center"}, {"type": "text", "text": "讓命運來決定吧！點擊下方按鈕，看看你今天跟什麼美食有緣！", "wrap": True, "align": "center", "margin": "md"}]}, "footer": {"type": "box", "layout": "vertical", "spacing": "sm", "contents": [{"type": "button", "style": "primary", "height": "sm", "color": "#FF6B6B", "action": {"type": "postback", "label": "吃飯選擇障礙輪盤Go！🎲", "data": "action=start_food_roulette"}}]}}}
+        reply_message = FlexMessage.from_dict(flex_message_json)
+    elif text == '喝':
+        flex_message_json_drink = {
+            "type": "flex", "altText": "啟動喝酒輪盤",
+            "contents": {"type": "bubble", "hero": {"type": "image", "url": "https://i.imgur.com/uT9VH9a.gif", "size": "full", "aspectRatio": "20:20", "aspectMode": "cover", "animated": True}, "body": {"type": "box", "layout": "vertical", "contents": [{"type": "text", "text": "喝吧，不醉不歸!", "weight": "bold", "size": "xl", "align": "center"}, {"type": "text", "text": "讓命運來決定吧！點擊下方按鈕，看看你今天要喝多少！", "wrap": True, "align": "center", "margin": "md"}]}, "footer": {"type": "box", "layout": "vertical", "spacing": "sm", "contents": [{"type": "button", "style": "primary", "height": "sm", "color": "#A16DF9", "action": {"type": "postback", "label": "啟動喝酒輪盤！🍻", "data": "action=start_drinking_game"}}]}}}
+        reply_message = FlexMessage.from_dict(flex_message_json_drink)
+    
+    elif text == '查看吃飯清單':
+        list_text = "目前美食輪盤的選項有：\n\n" + "\n".join([f"🍴 {item}" for item in CUISINE_OPTIONS])
+        # 在回覆清單的同時，附上快速回覆按鈕
+        reply_message = TextMessage(text=list_text, quick_reply=quick_reply_buttons)
+
+    elif text == '查看喝酒遊戲清單':
+        list_text = "目前喝酒輪盤的選項有：\n\n" + "\n".join([f"🎲 {item}" for item in DRINKING_GAME_OPTIONS])
+        # 在回覆清單的同時，附上快速回覆按鈕
+        reply_message = TextMessage(text=list_text, quick_reply=quick_reply_buttons)
+        
+    else:
+        # 「聽不懂」的回覆，也使用共用的按鈕物件
+        reply_message = TextMessage(
+            text="抱歉，我聽不懂你的指令耶。\n你可以從下方的按鈕開始玩喔！",
+            quick_reply=quick_reply_buttons
+        )
+
     with ApiClient(configuration) as api_client:
         line_bot_api = MessagingApi(api_client)
-        reply_message = None
-
-        if text == '吃':
-            flex_message_json = {
-              "type": "flex", "altText": "吃飯選擇障礙輪盤Go",
-              "contents": { "type": "bubble", "hero": {"type": "image", "url": "https://i.imgur.com/G3Qc0HK.jpeg", "size": "full", "aspectRatio": "20:20", "aspectMode": "cover"}, "body": {"type": "box", "layout": "vertical", "contents": [{"type": "text", "text": "來看看吃什麼？", "weight": "bold", "size": "xl", "align": "center"}, {"type": "text", "text": "讓命運來決定吧！點擊下方按鈕，看看你今天跟什麼美食有緣！", "wrap": True, "align": "center", "margin": "md"}]}, "footer": {"type": "box", "layout": "vertical", "spacing": "sm", "contents": [{"type": "button", "style": "primary", "height": "sm", "color": "#FF6B6B", "action": {"type": "postback", "label": "吃飯選擇障礙輪盤Go！🎲", "data": "action=start_food_roulette"}}]}}}
-            reply_message = FlexMessage.from_dict(flex_message_json)
-        elif text == '喝':
-            flex_message_json_drink = {
-                "type": "flex", "altText": "啟動喝酒輪盤",
-                "contents": {"type": "bubble", "hero": {"type": "image", "url": "https://i.imgur.com/uT9VH9a.gif", "size": "full", "aspectRatio": "20:20", "aspectMode": "cover", "animated": True}, "body": {"type": "box", "layout": "vertical", "contents": [{"type": "text", "text": "喝吧，不醉不歸!", "weight": "bold", "size": "xl", "align": "center"}, {"type": "text", "text": "讓命運來決定吧！點擊下方按鈕，看看你今天要喝多少！", "wrap": True, "align": "center", "margin": "md"}]}, "footer": {"type": "box", "layout": "vertical", "spacing": "sm", "contents": [{"type": "button", "style": "primary", "height": "sm", "color": "#A16DF9", "action": {"type": "postback", "label": "啟動喝酒輪盤！🍻", "data": "action=start_drinking_game"}}]}}}
-            reply_message = FlexMessage.from_dict(flex_message_json_drink)
-        
-        elif text == '查看吃飯清單':
-            list_text = "目前美食輪盤的選項有：\n\n" + "\n".join([f"🍴 {item}" for item in CUISINE_OPTIONS])
-            # 在回覆清單的同時，附上快速回覆按鈕
-            reply_message = TextMessage(text=list_text, quick_reply=quick_reply_buttons)
-
-        elif text == '查看喝酒遊戲清單':
-            list_text = "目前喝酒輪盤的選項有：\n\n" + "\n".join([f"🎲 {item}" for item in DRINKING_GAME_OPTIONS])
-            # 在回覆清單的同時，附上快速回覆按鈕
-            reply_message = TextMessage(text=list_text, quick_reply=quick_reply_buttons)
-            
-        else:
-            # 「聽不懂」的回覆，也使用共用的按鈕物件
-            reply_message = TextMessage(
-                text="抱歉，我聽不懂你的指令耶。\n你可以從下方的按鈕開始玩喔！",
-                quick_reply=quick_reply_buttons
-            )
-        
         line_bot_api.reply_message_with_http_info(
             ReplyMessageRequest(reply_token=event.reply_token, messages=[reply_message])
         )
@@ -317,6 +317,7 @@ def handle_location_message(event):
     except Exception as e:
         app.logger.error(f"Google Maps API Error: {e}")
         reply_text = "哎呀！地圖好像壞掉了，請稍後再試一次。"
+        
     with ApiClient(configuration) as api_client:
         line_bot_api = MessagingApi(api_client)
         line_bot_api.reply_message_with_http_info(
