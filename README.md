@@ -6,18 +6,12 @@ Line ID: @620kjouq
 
 GitHub: https://lnkd.in/gNzssx2a
 
-Backend Development
-* Language: Python
-* Framework: Flask
-* WSGI Server: Gunicorn
-* Data Handling: JSON (Parsing and Generation)
-DevOps & Cloud Infrastructure
-* Containerization: Docker
-* CI/CD & Hosting: Render (PaaS), GitHub
-* Monitoring: Health Check implementation, Service Monitoring (using UptimeRobot)
-* Local Development: venv, ngrok
-External APIs
-* LINE Messaging API (Webhook, Flex Message, Reply/Push API)
-* Google Maps API (Places API) (RESTful API Client)
-Other
-* AI-Assisted Coding
+Teck Stack:
+* 程式語言與框架: Python Flask
+* 架構與資料處理: Webhook/事件驅動架構, Google map API (RESTful API Client), JSON 數據處理
+* 容器技術: Docker
+* 部署與伺服器: Render (PaaS), CI/CD, Gunicorn (WSGI伺服器)
+* 監控: UptimeRobot
+* Local開發環境: Python venv, ngrok(網路穿透)
+* AI: AI-Assisted Coding
+* 版本控制: Git
