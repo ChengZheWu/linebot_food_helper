@@ -44,11 +44,29 @@ user_states = {}
 
 CUISINE_OPTIONS = ["中式料理", "日式料理", "義式料理", "火鍋", "美式漢堡", "韓式炸雞", "健康餐盒", "隨便"]
 DRINKING_GAME_OPTIONS = [
-    "喝一杯", "喝半杯", "把這杯乾了！", "SHOT 一杯", "淺嚐一口", "再倒一杯放著",
-    "左邊的人，喝一杯", "右邊的人，喝一杯", "對面的人，喝半杯", "左邊的人，SHOT 一杯", "和右邊的人，一起喝一杯",
-    "左右護法 (左&右)，各喝一杯", "現場所有人，喝一杯！", "現場所有男生，喝半杯", "現場所有女生，喝半杯",
-    "指定在場一個人喝一杯", "指定一個人，陪你喝一杯", "隨便找個人喝交杯酒", "PASS！安全下莊，換下一個人轉",
-    "天使卡：獲得免死金牌一張", "猜拳卡：跟右邊的人猜拳，輸的喝一杯"
+    "喝一杯 / Drink one cup", 
+    "喝半杯 / Drink half a cup", 
+    "淺嚐一口 / Take a sip", 
+    "和右邊的人，一起喝一口 / Take a sip with the person on your right",
+    "和左邊的人，一起喝一口 / Take a sip with the person on your left",
+    "和對面的人，一起喝一口 / Take a sip with the person on your opposite",
+    "現場所有人，喝一杯！ / Everyone, take a sip!", 
+    "現場所有男生，喝一口 / All guys, take a sip", 
+    "現場所有女生，喝一口 / All girls, take a sip",
+    "指定一個人，陪你喝一杯 / Choose one person to drink with you", 
+    "右邊的人幫你指定一個人喝交杯酒 / The person on your right picks someone for you to to link arms and drink with.", 
+    "PASS！安全下莊，換下一個人轉 / PASS! You're safe, next person",  
+    "猜拳：跟右邊的人猜拳，輸的喝一杯 / Rock-Paper-Scissors: Play with the person on your right, loser drinks", 
+    "猜拳：跟左邊的人猜拳，輸的喝一杯 / Rock-Paper-Scissors: Play with the person on your left, loser drinks", 
+    "禁忌詞 / Taboo\n玩法：選一個詞，接下來每個人都不能講，有講到就要喝", 
+    "數字炸彈 / Number Bomb\n玩法：其中一人在心中想一個數字（例如1到100之間），其他人要猜數字，需要提示大還小，猜到就要喝", 
+    "三六九 / 3-6-9 Game\n從1開始數，數到該數字的倍數就要喝", 
+    "二實一謊 / Two Truths and a Lie\n說出關於自己的三件事，兩個真的，一個假的，", 
+    "007\n 第一位跟第二位被指到的要說0，第三位要說砰並指出手槍，被指的人要雙手投降，太慢或舉錯都要喝", 
+    "互指 / The Pointing Game\n大家圍一圈，其中一人喊123，大家要指向其中一人，如果互相指到對方就要喝",
+    "竹筍竹筍蹦蹦出 / The Game of Death\n大家依序喊1、2、3依此類推，同時喊得跟最後喊得要喝，最後的要喝一大杯", 
+    "真心話大冒險 / Truth or Dare\n選擇真心話或大冒險，選擇執行任務或喝", 
+    "黑白猜 / Cham-Cham-Cham / Up-Down-Left-Right Game\n先猜拳，然後比上下左右，比到一樣的話，猜拳輸的喝"
 ]
 
 @app.route("/callback", methods=['POST'])
