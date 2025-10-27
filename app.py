@@ -243,7 +243,7 @@ def handle_message(event):
                             "color": "#A16DF9", 
                             "action": {
                                 "type": "postback", 
-                                "label": "啟動喝酒輪盤！🍻", 
+                                "label": "啟動喝酒輪盤！Go Go！🍻", 
                                 "data": "action=start_drinking_game"
                             }
                         }
@@ -365,7 +365,7 @@ def handle_postback(event):
                                 "contents": [
                                     {
                                         "type": "text", 
-                                        "text": "再來一輪？", 
+                                        "text": "再來一輪？Again？", 
                                         "weight": "bold", 
                                         "size": "md", 
                                         "align": "center",
@@ -373,7 +373,7 @@ def handle_postback(event):
                                     },
                                     {
                                         "type": "text", 
-                                        "text": "繼續挑戰下一個幸運兒！", 
+                                        "text": "繼續挑戰下一個幸運兒！\nWho is the next lucky guy?", 
                                         "wrap": True, 
                                         "align": "center", 
                                         "size": "sm",
@@ -389,7 +389,7 @@ def handle_postback(event):
                                 "color": "#A16DF9", 
                                 "action": {
                                     "type": "postback", 
-                                    "label": "啟動喝酒輪盤！🍻", 
+                                    "label": "啟動喝酒輪盤！Go Go！🍻", 
                                     "data": "action=start_drinking_game"
                                 }
                             }
