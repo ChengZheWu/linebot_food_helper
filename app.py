@@ -89,7 +89,7 @@ def handle_follow(event):
     with ApiClient(configuration) as api_client:
         line_bot_api = MessagingApi(api_client)
         user_id = event.source.user_id
-        bot_name = "你的吃飯小助理Andy"
+        bot_name = "吃吃喝喝小輪盤"
         base_text = f"你好啊！\n找 {bot_name} 就對了"
         try:
             profile = line_bot_api.get_profile(user_id)
