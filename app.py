@@ -366,7 +366,7 @@ def handle_postback(event):
                                 "contents": [
                                     {
                                         "type": "text", 
-                                        "text": "再來一輪？Again？", 
+                                        "text": "再來一輪？", 
                                         "weight": "bold", 
                                         "size": "md", 
                                         "align": "center",
@@ -374,7 +374,7 @@ def handle_postback(event):
                                     },
                                     {
                                         "type": "text", 
-                                        "text": "繼續挑戰下一個幸運兒！\nWho is the next lucky guy?", 
+                                        "text": "繼續挑戰下一個幸運兒！", 
                                         "wrap": True, 
                                         "align": "center", 
                                         "size": "sm",
@@ -390,7 +390,7 @@ def handle_postback(event):
                                 "color": "#A16DF9", 
                                 "action": {
                                     "type": "postback", 
-                                    "label": "啟動喝酒輪盤！Go Go！🍻", 
+                                    "label": "啟動喝酒輪盤Go！🍻", 
                                     "data": "action=start_drinking_game"
                                 }
                             }
@@ -441,7 +441,7 @@ def handle_location_message(event):
             else:
                 break
         if count == 0:
-            reply_text = f"抱歉，您附近 1 公里內找不到符合「{search_keyword}」的餐廳耶..."
+            reply_text = f"抱歉，您附近 1 公里內找不到符合「{search_keyword}」的場所耶..."
     except Exception as e:
         app.logger.error(f"Google Maps API Error: {e}")
         reply_text = "哎呀！地圖好像壞掉了，請稍後再試一次。"
