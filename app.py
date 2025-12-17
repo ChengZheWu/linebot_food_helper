@@ -332,8 +332,11 @@ def handle_postback(event):
         
         elif postback_data == 'action=start_drinking_game':
             # 直接使用全域的 DRINKING_GAME_OPTIONS
-            chosen_action = random.choice(DRINKING_GAME_OPTIONS)
-            result_message = TextMessage(text=f"輪盤的指令是...\n\n 👉 {chosen_action} 👈 \n{DRINKING_GAME_OPTIONS[chosen_action]}")
+            chosen_action = random.choice(list(DRINKING_GAME_OPTIONS.keys()))
+            if DRINKING_GAME_OPTIONS[chosen_action] == "":
+                result_message = TextMessage(text=f"輪盤的指令是...\n\n 👉 {chosen_action} 👈")
+            else:
+                result_message = TextMessage(text=f"輪盤的指令是...\n\n 👉 {chosen_action} 👈 \n{DRINKING_GAME_OPTIONS[chosen_action]}")
 
             # 使用push_message會耗掉資源，所以要改用reply_message
             # 倒數計時
