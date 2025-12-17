@@ -252,7 +252,7 @@ def handle_message(event):
         reply_message = FlexMessage.from_dict(flex_message_json_drink)
     
     elif text == '查看喝酒地點清單':
-        list_text = "查看喝酒地點清單\n\n" + "\n".join([f"🍴 {item}" for item in CUISINE_OPTIONS.keys()])
+        list_text = "查看喝酒地點清單\n\n" + "\n".join([f"🍴 {item}" for item in CUISINE_OPTIONS])
         # 在回覆清單的同時，附上快速回覆按鈕
         reply_message = TextMessage(
             text=list_text, 
