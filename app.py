@@ -105,7 +105,7 @@ def handle_follow(event):
             items=[
                 QuickReplyItem(action=MessageAction(label="來個有料的", text="來個有料的")),
                 QuickReplyItem(action=MessageAction(label="來點好玩的", text="來點好玩的")),
-                QuickReplyItem(action=MessageAction(label="查看吃飯清單", text="查看吃飯清單")),
+                QuickReplyItem(action=MessageAction(label="查看喝酒地點清單", text="查看喝酒地點清單")),
                 QuickReplyItem(action=MessageAction(label="查看喝酒遊戲清單", text="查看喝酒遊戲清單"))
             ]
         )
@@ -128,7 +128,7 @@ def handle_message(event):
         items=[
             QuickReplyItem(action=MessageAction(label="來個有料的", text="來個有料的")),
             QuickReplyItem(action=MessageAction(label="來點好玩的", text="來點好玩的")),
-            QuickReplyItem(action=MessageAction(label="查看吃飯清單", text="查看吃飯清單")),
+            QuickReplyItem(action=MessageAction(label="查看喝酒地點清單", text="查看喝酒地點清單")),
             QuickReplyItem(action=MessageAction(label="查看喝酒遊戲清單", text="查看喝酒遊戲清單"))
         ]
     )
