@@ -144,7 +144,7 @@ def handle_message(event):
                 
                 "hero": {
                     "type": "image", 
-                    "url": "https://i.imgur.com/G3Qc0HK.jpeg", 
+                    "url": "https://i.imgur.com/hpVYYdq.jpeg", 
                     "size": "full", 
                     "aspectRatio": "20:20", 
                     "aspectMode": "cover"
