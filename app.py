@@ -42,7 +42,7 @@ handler = WebhookHandler(LINE_CHANNEL_SECRET)
 gmaps = googlemaps.Client(key=GOOGLE_MAPS_API_KEY)
 user_states = {}
 
-CUISINE_OPTIONS = ["中式料理", "日式料理", "義式料理", "火鍋", "美式漢堡", "韓式炸雞", "健康餐盒", "隨便"]
+CUISINE_OPTIONS = ["酒吧", "居酒屋", "熱炒", "便利商店", "餐酒館"]
 DRINKING_GAME_OPTIONS = [
     "喝一杯 / Drink one cup", 
     "喝半杯 / Drink half a cup", 
@@ -90,7 +90,7 @@ def handle_follow(event):
         line_bot_api = MessagingApi(api_client)
         user_id = event.source.user_id
         bot_name = "吃吃喝喝小輪盤"
-        base_text = f"你好啊！\n找 {bot_name} 就對了"
+        base_text = f"想喝是嗎?\n找 {bot_name} 就對了\n"
         try:
             profile = line_bot_api.get_profile(user_id)
             nickname = profile.display_name
@@ -100,13 +100,13 @@ def handle_follow(event):
             final_welcome_text = base_text
 
         message1 = TextMessage(text=final_welcome_text)
-        message2_text = "請問是吃飯有選擇障礙還是要玩喝酒遊戲呢?\n想吃飯請打\"吃\"\n想玩喝酒遊戲請打\"喝\"\n也可以直接從下面選單選擇\n重新對話請隨意輸入文字"
+        message2_text = "想喝酒尋歡卻沒有想法?\n請點擊來個有料的\n想喝酒壯膽但場面還太乾?\n請點擊來點好玩的\n\"重新對話請隨意輸入文字\""
         
         # 更新快速回覆按鈕，加入查看清單的選項
         quick_reply_buttons = QuickReply(
             items=[
-                QuickReplyItem(action=MessageAction(label="想吃飯 🍚", text="吃")),
-                QuickReplyItem(action=MessageAction(label="想玩喝酒遊戲 🍻", text="喝")),
+                QuickReplyItem(action=MessageAction(label="來個有料的", text="來個有料的")),
+                QuickReplyItem(action=MessageAction(label="來點好玩的", text="來點好玩的")),
                 QuickReplyItem(action=MessageAction(label="查看吃飯清單", text="查看吃飯清單")),
                 QuickReplyItem(action=MessageAction(label="查看喝酒遊戲清單", text="查看喝酒遊戲清單"))
             ]
@@ -128,8 +128,8 @@ def handle_message(event):
     # 將 QuickReply 按鈕的定義，統一放在函式開頭，方便共用
     quick_reply_buttons = QuickReply(
         items=[
-            QuickReplyItem(action=MessageAction(label="想吃飯 🍚", text="吃")),
-            QuickReplyItem(action=MessageAction(label="想玩喝酒遊戲 🍻", text="喝")),
+            QuickReplyItem(action=MessageAction(label="來個有料的", text="來個有料的")),
+            QuickReplyItem(action=MessageAction(label="來點好玩的", text="來點好玩的")),
             QuickReplyItem(action=MessageAction(label="查看吃飯清單", text="查看吃飯清單")),
             QuickReplyItem(action=MessageAction(label="查看喝酒遊戲清單", text="查看喝酒遊戲清單"))
         ]
@@ -137,10 +137,10 @@ def handle_message(event):
 
     reply_message = None
 
-    if text == '吃':
+    if text == '來個有料的':
         flex_message_json = {
             "type": "flex", 
-            "altText": "吃飯選擇障礙輪盤Go",
+            "altText": "找喝酒地點",
             "contents": { 
                 "type": "bubble", 
                 
@@ -158,14 +158,14 @@ def handle_message(event):
                     "contents": [
                         {
                             "type": "text", 
-                            "text": "來看看吃什麼？", 
+                            "text": "來看看有什麼好去處？", 
                             "weight": "bold", 
                             "size": "xl", 
                             "align": "center"
                         }, 
                         {
                             "type": "text", 
-                            "text": "讓命運來決定吧！點擊下方按鈕，看看你今天跟什麼美食有緣！", 
+                            "text": "讓命運來決定吧！點擊下方按鈕，看看你今天跟什麼店有緣！", 
                             "wrap": True, 
                             "align": "center", 
                             "margin": "md"
@@ -185,7 +185,7 @@ def handle_message(event):
                             "color": "#FF6B6B", 
                             "action": {
                                 "type": "postback", 
-                                "label": "吃飯選擇障礙輪盤Go！🎲", 
+                                "label": "來個有料的的地方吧Go！🎲", 
                                 "data": "action=start_food_roulette"
                             }
                         }
@@ -429,7 +429,7 @@ def handle_location_message(event):
         reply_text = f"為您搜尋「{search_keyword}」的結果如下：\n\n"
         count = 0
         for place in places_result.get('results', []):
-            if count < 5:
+            if count < 10:
                 name = place.get('name')
                 rating = place.get('rating', '無評分')
                 user_ratings_total = place.get('user_ratings_total', 0)
