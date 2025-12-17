@@ -98,7 +98,7 @@ def handle_follow(event):
             final_welcome_text = base_text
 
         message1 = TextMessage(text=final_welcome_text)
-        message2_text = "想喝酒尋歡卻沒有想法?\n請點擊 來個有料的\n想喝酒壯膽但場面還太乾?\n請點擊 來點好玩的\n有時候伺服器會睡下去，請稍等1~2分鐘\n\"重新對話請隨意輸入文字\""
+        message2_text = "想喝酒尋歡不知道去哪?\n請點擊 來個有料的\n想喝酒壯膽但場面還太乾?\n請點擊 來點好玩的\n有時候伺服器會睡下去，請稍等1~2分鐘\n\"重新對話請隨意輸入文字\""
         
         # 更新快速回覆按鈕，加入查看清單的選項
         quick_reply_buttons = QuickReply(
