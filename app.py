@@ -332,7 +332,7 @@ def handle_postback(event):
         
         elif postback_data == 'action=start_drinking_game':
             # 直接使用全域的 DRINKING_GAME_OPTIONS
-            chosen_action = random.choice(DRINKING_GAME_OPTIONS.keys())
+            chosen_action = random.choice(DRINKING_GAME_OPTIONS)
             if DRINKING_GAME_OPTIONS[chosen_action] == "":
                 result_message = TextMessage(text=f"輪盤的指令是...\n\n 👉 {chosen_action} 👈")
             else:
