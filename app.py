@@ -44,29 +44,27 @@ user_states = {}
 
 CUISINE_OPTIONS = ["酒吧", "居酒屋", "熱炒", "便利商店", "餐酒館"]
 DRINKING_GAME_OPTIONS = [
-    "喝一杯 / Drink one cup", 
-    "喝半杯 / Drink half a cup", 
-    "淺嚐一口 / Take a sip", 
-    "和右邊的人，一起喝一口 / Take a sip with the person on your right",
-    "和左邊的人，一起喝一口 / Take a sip with the person on your left",
-    "和對面的人，一起喝一口 / Take a sip with the person on your opposite",
-    "現場所有人，喝一杯！ / Everyone, take a sip!", 
-    "現場所有男生，喝一口 / All guys, take a sip", 
-    "現場所有女生，喝一口 / All girls, take a sip",
-    "指定一個人，陪你喝一杯 / Choose one person to drink with you", 
-    "右邊的人幫你指定一個人喝交杯酒 / The person on your right picks someone for you to to link arms and drink with.", 
-    "PASS！安全下莊，換下一個人轉 / PASS! You're safe, next person",  
-    "猜拳：跟右邊的人猜拳，輸的喝一杯 / Rock-Paper-Scissors: Play with the person on your right, loser drinks", 
-    "猜拳：跟左邊的人猜拳，輸的喝一杯 / Rock-Paper-Scissors: Play with the person on your left, loser drinks", 
-    "禁忌詞 / Taboo\n玩法：選一個詞，接下來每個人都不能講，有講到就要喝", 
-    "數字炸彈 / Number Bomb\n玩法：其中一人在心中想一個數字（例如1到100之間），其他人要猜數字，需要提示大還小，猜到就要喝", 
-    "三六九 / 3-6-9 Game\n從1開始數，數到該數字的倍數要拍手，如果做錯就要喝", 
-    "二實一謊 / Two Truths and a Lie\n說出關於自己的三件事，兩個真的，一個假的，大家要猜，有人猜錯就要喝，大家都猜對的話自己要喝", 
-    "007\n 第一位跟第二位被指到的要說0，第三位要說砰並指出手槍，被指的人要雙手投降，太慢或舉錯都要喝", 
-    "互指 / The Pointing Game\n大家圍一圈，喊123，大家要指向其中一人，如果互相指到對方就要喝",
-    "竹筍竹筍蹦蹦出 / The Game of Death\n大家依序喊1、2、3依此類推，同時喊得跟最後喊得要喝，最後的要喝一大杯", 
-    "真心話大冒險 / Truth or Dare\n選擇真心話或大冒險，選擇執行任務或喝", 
-    "黑白猜 / Cham-Cham-Cham / Up-Down-Left-Right Game\n先猜拳，然後比上下左右，比到一樣的話，猜拳輸的喝"
+    "喝一杯", 
+    "喝半杯", 
+    "喝一口", 
+    "和右邊的人，一起喝一口",
+    "和左邊的人，一起喝一口",
+    "和對面的人，一起喝一口",
+    "現場所有人，喝一口！", 
+    "現場所有男生，喝一口", 
+    "現場所有女生，喝一口",
+    "PASS！安全下莊，換下一個人轉",  
+    "跟右邊的人猜拳，輸的喝", 
+    "跟左邊的人猜拳，贏的喝", 
+    "禁忌詞\n玩法：選一個詞，接下來每個人都不能講，有講到就要喝", 
+    "數字炸彈\n玩法：其中一人在心中想一個數字（例如1到100之間），其他人要猜數字，需要提示大還小，猜到就要喝", 
+    "三六九\n從3~9之間許一個數字，順時針從1開始數，數到該數字的倍數要拍手，如果做錯就要喝", 
+    "二實一謊\n說出關於自己的三件事，兩個真的，一個假的，大家要猜，有人猜錯就要喝，大家都猜對的話自己要喝", 
+    "007\n第一位跟第二位被指到的要說0，第三位要說砰並指出手槍，被指的人要雙手投降，太慢或舉錯都要喝", 
+    "你喝\n喊123，跟右邊的人一起，同時指向一個人，如果指到同一個，那個人就要喝",
+    "竹筍竹筍蹦蹦出\n大家依序喊1、2、3依此類推，同時喊得跟最後喊得要喝，最後的要喝一大杯", 
+    "真心話大冒險\n選擇真心話或大冒險，選擇執行任務或喝", 
+    "黑白猜\n先猜拳，然後比上下左右，比到一樣的話，該局猜拳輸的喝"
 ]
 
 @app.route("/callback", methods=['POST'])
@@ -90,7 +88,7 @@ def handle_follow(event):
         line_bot_api = MessagingApi(api_client)
         user_id = event.source.user_id
         bot_name = "吃吃喝喝小輪盤"
-        base_text = f"想喝是嗎?\n找 {bot_name} 就對了\n"
+        base_text = f"想喝是嗎?\n找 {bot_name} 就對了"
         try:
             profile = line_bot_api.get_profile(user_id)
             nickname = profile.display_name
@@ -100,7 +98,7 @@ def handle_follow(event):
             final_welcome_text = base_text
 
         message1 = TextMessage(text=final_welcome_text)
-        message2_text = "想喝酒尋歡卻沒有想法?\n請點擊來個有料的\n想喝酒壯膽但場面還太乾?\n請點擊來點好玩的\n\"重新對話請隨意輸入文字\""
+        message2_text = "想喝酒尋歡卻沒有想法?\n請點擊 來個有料的\n想喝酒壯膽但場面還太乾?\n請點擊 來點好玩的\n\"重新對話請隨意輸入文字\""
         
         # 更新快速回覆按鈕，加入查看清單的選項
         quick_reply_buttons = QuickReply(
@@ -194,10 +192,10 @@ def handle_message(event):
             }
         }
         reply_message = FlexMessage.from_dict(flex_message_json)
-    elif text == '喝':
+    elif text == '來點好玩的':
         flex_message_json_drink = {
             "type": "flex", 
-            "altText": "啟動喝酒輪盤",
+            "altText": "找喝酒遊戲",
             "contents": {
                 "type": "bubble", 
                 
@@ -223,7 +221,7 @@ def handle_message(event):
                         }, 
                         {
                             "type": "text", 
-                            "text": "讓命運來決定吧！點擊下方按鈕，看看你今天要喝多少！", 
+                            "text": "想躲酒?那你得碰碰運氣了!", 
                             "wrap": True, 
                             "align": "center", 
                             "margin": "md"
@@ -243,7 +241,7 @@ def handle_message(event):
                             "color": "#A16DF9", 
                             "action": {
                                 "type": "postback", 
-                                "label": "啟動喝酒輪盤！Go Go！🍻", 
+                                "label": "來點好玩的遊戲吧Go！🍻", 
                                 "data": "action=start_drinking_game"
                             }
                         }
