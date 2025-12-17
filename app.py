@@ -251,8 +251,8 @@ def handle_message(event):
         }
         reply_message = FlexMessage.from_dict(flex_message_json_drink)
     
-    elif text == '查看吃飯清單':
-        list_text = "目前美食輪盤的選項有：\n\n" + "\n".join([f"🍴 {item}" for item in CUISINE_OPTIONS])
+    elif text == '查看喝酒地點清單':
+        list_text = "查看喝酒地點清單\n\n" + "\n".join([f"🍴 {item}" for item in CUISINE_OPTIONS.keys()])
         # 在回覆清單的同時，附上快速回覆按鈕
         reply_message = TextMessage(
             text=list_text, 
@@ -270,7 +270,7 @@ def handle_message(event):
     else:
         # 「聽不懂」的回覆，也使用共用的按鈕物件
         reply_message = TextMessage(
-            text="抱歉，我聽不懂你的指令耶。\n你可以從下方的按鈕開始玩喔！",
+            text="還在猶豫嗎?\n聽小老弟的\n趕快從下面選單挑一個吧！",
             quick_reply=quick_reply_buttons
         )
 
